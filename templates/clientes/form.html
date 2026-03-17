@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+
+    <div class="card-header bg-primary text-white">
+        <h5>
+            {% if object %}
+                ✏️ Editar Cliente
+            {% else %}
+                ➕ Novo Cliente
+            {% endif %}
+        </h5>
+    </div>
+
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="d-flex justify-content-between mt-4">
+
+                <!-- BOTÃO EXCLUIR (somente se já existir cliente) -->
+                {% if object %}
+                <a href="{% url 'clientes:excluir' object.id %}"
+                   class="btn btn-danger"
+                   onclick="return confirm('Tem certeza que deseja excluir este cliente?');">
+                    🗑 Excluir
+                </a>
+                {% endif %}
+
+                <div class="d-flex gap-2">
+                    <!-- CANCELAR -->
+                    <a href="{% url 'clientes:lista' %}" class="btn btn-secondary">
+                        Cancelar
+                    </a>
+
+                    <!-- SALVAR -->
+                    <button type="submit" class="btn btn-success">
+                        Salvar
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Detalhes da OS{% endblock %}
+{% block content %}
+
+<h3>OS #{{ os.id }} - {{ os.aparelho }}</h3>
+
+<p><strong>Status:</strong> {{ os.status }}</p>
+<p><strong>Data:</strong> {{ os.data_entrada|date:"d/m/Y H:i" }}</p>
+
+<!-- TOTAL DA OS -->
+<div class="alert alert-success text-center fs-5">
+    <strong>Total da OS:</strong>
+    R$ {{ os.total_geral|floatformat:2 }}
+</div>
+
+<hr>
+
+<div class="row">
+    <!-- PRODUTOS -->
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                Produtos
+            </div>
+            <div class="card-body">
+
+                {% if itens %}
+                <table class="table">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Qtd</th>
+                        <th>Valor</th>
+                        <th></th>
+                    </tr>
+                    {% for item in itens %}
+                    <tr>
+                        <td>{{ item.produto.nome }}</td>
+                        <td>{{ item.quantidade }}</td>
+                        <td>R$ {{ item.valor }}</td>
+                        <td>
+                            <a href="{% url 'servicos:remover_item' item.id %}"
+                               class="btn btn-danger btn-sm">
+                                Remover
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p>Nenhum produto adicionado.</p>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="tipo_form" value="produto">
+
+                    <select name="produto" class="form-select mb-2">
+                        {% for produto in produtos %}
+                        <option value="{{ produto.id }}">
+                            {{ produto.nome }} - R$ {{ produto.preco_venda }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="number" name="quantidade" class="form-control mb-2" value="1" min="1">
+
+                    <button class="btn btn-success w-100">
+                        Adicionar Produto
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVIÇOS -->
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-white">
+                Serviços Realizados
+            </div>
+            <div class="card-body">
+
+                {% if servicos %}
+                <table class="table">
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                    </tr>
+                    {% for s in servicos %}
+                    <tr>
+                        <td>{{ s.descricao }}</td>
+                        <td>R$ {{ s.valor }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p>Nenhum serviço adicionado.</p>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="tipo_form" value="servico_extra">
+
+                    <input type="text" name="descricao" class="form-control mb-2"
+                           placeholder="Descrição do serviço">
+
+                    <input type="number" step="0.01" name="valor"
+                           class="form-control mb-2"
+                           placeholder="Valor do serviço">
+
+                    <button class="btn btn-primary w-100">
+                        Adicionar Serviço
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FINALIZAR OS COM CONFIRMAÇÃO -->
+<form method="post"
+      action="{% url 'servicos:finalizar_os' os.id %}"
+      onsubmit="return confirm('Confirma o salvamento e finalização desta OS?');">
+    {% csrf_token %}
+    <button class="btn btn-success w-100">
+        Salvar / Finalizar OS
+    </button>
+</form>
+
+<a href="{% url 'servicos:lista_servicos' %}" class="btn btn-secondary mt-3">
+    Voltar
+</a>
+
+{% endblock %}

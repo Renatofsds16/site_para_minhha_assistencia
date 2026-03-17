@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Vendas{% endblock %}
+
+{% block content %}
+<div class="alert alert-info">
+        Vendas do mes {{ mes_atual }}/{{ ano_atual }}
+    </div>
+<div class="card shadow">
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Vendas</h5>
+
+        <!-- BOTÃO ADICIONAR -->
+        <a href="{% url 'vendas:nova' %}" class="btn btn-light btn-sm">
+            ➕ Nova Venda
+        </a>
+    </div>
+   
+
+
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venda in vendas %}
+                <tr>
+                    <td>{{ venda.id }}</td>
+                    <td>{{ venda.cliente }}</td>
+                    <td>{{ venda.data|date:"d/m/Y" }}</td>
+                    <td>R$ {{ venda.valor_total }}</td>
+
+                    <!-- BOTÕES DE AÇÃO -->
+                    <td class="text-center">
+                        <a href="{% url 'vendas:detalhe' venda.id %}" 
+                           class="btn btn-sm btn-primary">
+                            Ver
+                        </a>
+
+                        <a href="{% url 'vendas:remover_venda' venda.id %}" 
+                           class="btn btn-sm btn-danger">
+                            🗑 Excluir
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">
+                        Nenhuma venda cadastrada
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

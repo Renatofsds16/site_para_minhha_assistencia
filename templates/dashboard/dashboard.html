@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card mb-4 shadow border-0">
+    <div class="p-5 text-white text-center"
+         style="background: linear-gradient(135deg, #0d6efd, #198754);">
+        <h1 class="fw-bold">Sistema de Assistência Técnica</h1>
+        <p class="mb-0">Controle de vendas, serviços e faturamento</p>
+    </div>
+</div>
+<h2 class="mb-4">Painel Geral</h2>
+
+<div class="row g-4">
+
+    <!-- Produtos -->
+<div class="col-md-3">
+    <a href="{% url 'estoque:lista' %}" class="text-decoration-none">
+        <div class="card shadow border-primary h-100">
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">Produtos</h6>
+
+                <h2 class="text-primary">
+                    {{ produtos }}
+                </h2>
+
+                <small class="text-success fw-semibold">
+                    R$ {{ valor_total_produtos|floatformat:2 }}
+                </small>
+
+            </div>
+        </div>
+    </a>
+</div>
+<div class="col-md-3">
+    <div class="card shadow border-success h-100">
+        <div class="card-body text-center">
+
+            <h6 class="text-muted">Faturamento de Hoje</h6>
+
+            <h2 class="text-success">
+                R$ {{ faturamento_dia|floatformat:2 }}
+            </h2>
+
+            <small class="text-muted d-block">
+                Vendas: R$ {{ faturamento_vendas_dia|floatformat:2 }}
+            </small>
+            <small class="text-muted">
+                OS: R$ {{ faturamento_os_dia|floatformat:2 }}
+            </small>
+
+        </div>
+    </div>
+</div>
+
+    <!-- Serviços (OS com MaoObra) -->
+    <div class="col-md-3">
+        <a href="{% url 'servicos:lista_servicos' %}" class="text-decoration-none">
+            <div class="card shadow border-info h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">OS concluidos</h6>
+                    <h2 class="text-info">{{ servicos }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Vendas (somente Venda model) -->
+    <div class="col-md-3">
+        <a href="{% url 'vendas:lista_vendas' %}" class="text-decoration-none">
+            <div class="card shadow border-success h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">Vendas</h6>
+                    <h2 class="text-success">{{ vendas }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+    <a href="{% url 'financeiro:lista_fiado' %}" class="text-decoration-none">
+        <div class="card shadow border-danger h-100">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Fiado em aberto</h6>
+
+                {% if fiado_aberto > 0 %}
+                    <h2 class="text-danger">
+                        R$ {{ fiado_aberto|floatformat:2 }}
+                    </h2>
+                    <small class="text-muted">
+                        Clique para ver os fiados
+                    </small>
+                {% else %}
+                    <h2 class="text-success">
+                        R$ 0,00
+                    </h2>
+                    <small class="text-muted">
+                        Clique para registrar um novo fiado
+                    </small>
+                {% endif %}
+            </div>
+        </div>
+    </a>
+    </div>
+
+
+    <!-- OS Abertas -->
+    <div class="col-md-3">
+        <a href="{% url 'servicos:lista_servicos_abertos' %}" class="text-decoration-none">
+            <div class="card shadow border-warning h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">OS Abertas</h6>
+                    <h2 class="text-warning">{{ os_abertas }}</h2>
+                    <small class="text-muted">R$ {{ valor_a_receber|floatformat:2 }} a receber</small>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<!-- Faturamento e Total OS Concluídas -->
+<div class="row g-4 mt-3">
+
+    <!-- Faturamento do mês -->
+    <div class="col-md-6">
+        <div class="card shadow border-dark h-100 text-center">
+            <div class="card-body">
+                <h5>Faturamento do Mês</h5>
+                <h1 class="text-dark">R$ {{ faturamento_mes|floatformat:2 }}</h1>
+                <p class="mb-0 text-success">Vendas: R$ {{ faturamento_vendas|floatformat:2 }}</p>
+                <p class="mb-0 text-info">OS: R$ {{ faturamento_os|floatformat:2 }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total de OS concluídas -->
+    <div class="col-md-6">
+        <div class="card shadow border-secondary h-100 text-center">
+            <div class="card-body">
+                <h5>Total OS Concluídas</h5>
+                <h2 class="text-secondary">{{ total_os_concluidas }}</h2>
+                <p class="mb-0 text-info">R$ {{ faturamento_os|floatformat:2 }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

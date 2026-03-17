@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if form.errors %}
+<div class="alert alert-danger">
+    <strong>Erros do Fiado:</strong>
+    {{ form.errors }}
+</div>
+{% endif %}
+
+{% if formset.non_form_errors %}
+<div class="alert alert-danger">
+    <strong>Erro geral dos itens:</strong>
+    {{ formset.non_form_errors }}
+</div>
+{% endif %}
+
+{% for f in formset %}
+    {% if f.errors %}
+        <div class="alert alert-danger">
+            <strong>Erro no item:</strong>
+            {{ f.errors }}
+        </div>
+    {% endif %}
+{% endfor %}
+
+
+<h3>Novo Fiado</h3>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <hr>
+    <h5>Itens do Fiado</h5>
+
+    {{ formset.management_form }}
+
+    {% for item_form in formset %}
+        <div class="card mb-3 p-3 border">
+            {{ item_form.as_p }}
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">
+        Salvar Fiado
+    </button>
+</form>
+
+{% endblock %}

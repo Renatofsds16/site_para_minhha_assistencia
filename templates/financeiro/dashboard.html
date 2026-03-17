@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Financeiro</h2>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card shadow text-center">
+            <div class="card-body">
+                <h5>Vendas</h5>
+                <h3 class="text-success">R$ {{total_vendas}}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow text-center">
+            <div class="card-body">
+                <h5>Despesas</h5>
+                <h3 class="text-danger">R$ {{total_despesas}}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow text-center">
+            <div class="card-body">
+                <h5>Lucro</h5>
+                <h3 class="text-primary">R$ {{lucro}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

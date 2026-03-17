@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Nova OS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <div class="card shadow">
+            <div class="card-header bg-warning">
+                <h5 class="mb-0">
+                    <i class="bi bi-tools"></i> Ordem de Serviço
+                </h5>
+            </div>
+
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <!-- BUSCA DE CLIENTE (visual) -->
+                    <div class="mb-3">
+                        <label class="form-label">🔍 Buscar cliente</label>
+                        <input type="text" 
+                               class="form-control" 
+                               placeholder="Digite o nome do cliente..."
+                               id="buscaCliente">
+                    </div>
+
+                    <!-- RESTO DO FORM -->
+                    {{ form.as_p|safe }}
+
+                    <div class="text-end mt-4">
+                        <a href="{% url 'servicos:lista_servicos' %}" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+
+                        <button class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Salvar OS
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- SCRIPT DE BUSCA NO SELECT -->
+<script>
+document.getElementById("buscaCliente").addEventListener("keyup", function () {
+    const filtro = this.value.toLowerCase();
+    const select = document.getElementById("id_cliente");
+
+    for (let option of select.options) {
+        option.style.display =
+            option.text.toLowerCase().includes(filtro) ? "" : "none";
+    }
+});
+</script>
+
+{% endblock %}
