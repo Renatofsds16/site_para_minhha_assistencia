@@ -1,1 +1,1 @@
-web: gunicorn smartfix.wsgi
+web: gunicorn assistencia.wsgi
