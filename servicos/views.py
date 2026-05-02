@@ -12,9 +12,7 @@ def lista_servicos(request):
         empresa=request.user.perfil.empresa
     ).order_by('-id')
 
-    return render(request, "servicos/lista_servicos.html", {
-        "servicos": servicos
-    })
+    return render(request, "servicos/lista_servicos.html", {"servicos": servicos})
 
 
 @login_required
