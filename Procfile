@@ -1,1 +1,1 @@
-web: gunicorn assistencia.wsgi
+web: gunicorn core.wsgi
