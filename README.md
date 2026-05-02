@@ -6,6 +6,9 @@ A aplicação foi construída com foco em escalabilidade e multiusuário, permit
 
 ## Visão Geral
 
+## link do projeto online
+- https://site-para-minhha-assistencia.onrender.com
+
 O sistema possui um dashboard inicial que apresenta indicadores importantes para a tomada de decisão, além de diversas funcionalidades para controle operacional do dia a dia.
 
 ## Funcionalidades
