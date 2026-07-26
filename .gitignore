@@ -1,0 +1,110 @@
+# ==========================================
+# Variáveis de Ambiente e Segredos (CRÍTICO)
+# ==========================================
+.env
+.env.local
+*.env
+
+# ==========================================
+# Ambiente Virtual Python (venv)
+# ==========================================
+venv/
+env/
+ENV/
+.venv/
+
+# ==========================================
+# Cache e Arquivos Temporários do Python
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# ==========================================
+# Banco de Dados Local
+# ==========================================
+# Ignora o SQLite local para não subir dados de teste
+*.sqlite3
+*.db
+
+# ==========================================
+# Arquivos de Mídia e Estáticos Coletados
+# ==========================================
+/staticfiles/
+/media/
+
+# ==========================================
+# Arquivos do Editor / IDE (VS Code, PyCharm)
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# Outros Arquivos Temporários
+# ==========================================
+.DS_Store
+Thumbs.db
+*.log
+*.csv
+# Python / Django
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+.Python
+
+# Arquivos de ambiente e configurações locais
+.env
+.env.local
+.env.*.local
+*.env
+local_settings.py
+
+# Ambientes Virtuais (Virtual Environments)
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Banco de dados local (SQLite)
+*.sqlite3
+*.db
+
+# Arquivos estáticos e de mídia locais
+# (Descomente 'static/' se o seu collectstatic gerar os arquivos em uma pasta separada)
+# static/
+media/
+
+# Logs e arquivos de depuração
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# VS Code / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebooks (se usar no projeto)
+.ipynb_checkpoints
